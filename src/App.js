@@ -1,17 +1,25 @@
 import React from "react";
-import { Login } from "./components/Login/Login";
-import { Home } from "./components/Home/Home"
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { Home } from "./components/Home/Home";
+import { Route, Routes } from "react-router-dom";
+import "./SidebarList.css";
+import SideBar from "./components/Sidebar/SideBar";
 
-const App = () => {
+import Dashboard from "./pages/Dashboard";
+import Analytics from "./pages/Analytics";
+import Saved from "./pages/Saved";
+import Setting from "./pages/Setting";
+
+export const App = () => {
   return (
-    <Router>
+    <SideBar>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/music" element={<Home />} />
+        <Route path="/analytics" element={<Analytics />} />
+        <Route path="/saved" element={<Saved />} />
+        <Route path="/settings" element={<Setting />} />
+        <Route path="*" element={<> not found</>} />
       </Routes>
-    </Router>
+    </SideBar>
   );
 };
-
-export default App;
