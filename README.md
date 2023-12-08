@@ -1,8 +1,13 @@
-# React + Vite
+# MovieMarvels
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is built with Redux Toolkit and Axios to display the Movies and TV shows.
 
-Currently, two official plugins are available:
+The functionalities include Searching, Sorting by various options and Selecting with different genres.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+It displays the movie or TV show along with the actors, rating, and a trailer.
+
+With addition to it, it shows the similar entertainment world to the selected list.
+
+You can also watch Trending, What's popular, and Top rated movies or tv shows, by weekly or daily.
+
+Hope you all enjoy exploring it - MovieMarvels
