@@ -1,4 +1,4 @@
-# StarFlix
+# MovieMarvels
 
 This project is built with Redux Toolkit and Axios to display the Movies and TV shows.
 
@@ -10,4 +10,4 @@ With addition to it, it shows the similar entertainment world to the selected li
 
 You can also watch Trending, What's popular, and Top rated movies or tv shows, by weekly or daily.
 
-Hope you all enjoy exploring it - StarFlix
+Hope you all enjoy exploring it - MovieMarvels

@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "./style.scss";
 import ContentWrapper from "../contentWrapper/ContentWrapper";
 import logo from "../../assets/movie-logo.png";
+import movieMarvelsLogo from "../../assets/movie-marvels.png";
 
 const Header = () => {
   const [show, setShow] = useState("top");
@@ -72,7 +73,14 @@ const Header = () => {
     <header className={`header ${mobileMenu ? "mobileView" : ""} ${show}`}>
       <ContentWrapper>
         <div className="logo" onClick={() => navigate("/")}>
-          <img src={logo} alt="" />
+          {mobileMenu ? (
+            <img src={logo} alt="Logo" />
+          ) : (
+            <>
+              <img src={logo} alt="Logo" style={{ marginRight: "5px" }} />
+              <img src={movieMarvelsLogo} alt="MovieMarvels Logo" />
+            </>
+          )}
         </div>
         <ul className="menuItems">
           <li className="menuItem" onClick={() => navigationHandler("movie")}>
