@@ -5,8 +5,8 @@ import { VscChromeClose } from "react-icons/vsc";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./style.scss";
 import ContentWrapper from "../contentWrapper/ContentWrapper";
-import logo from "../../assets/movie-logo.png";
-import movieMarvelsLogo from "../../assets/movie-marvels.png";
+import logo from "/assets/movie-logo.png";
+import movieMarvelsLogo from "/assets/movie-marvels.png";
 
 const Header = () => {
   const [show, setShow] = useState("top");
