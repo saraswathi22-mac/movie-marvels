@@ -1,4 +1,5 @@
-@use "../../mixins.scss" as *;
+@use "../../mixins" as *;
+
 .movieCard {
   width: calc(50% - 5px);
   margin-bottom: 25px;

@@ -1,4 +1,5 @@
-@use "../../../mixins.scss" as *;
+@use "../../../mixins" as *;
+
 .detailsBanner {
   width: 100%;
   background-color: var(--black);
