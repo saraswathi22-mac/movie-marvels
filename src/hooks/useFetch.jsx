@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { fetchDataFromApi } from "../utils/api";
 
-const useFetch = (url) => {
+const useFetch = (url, params = {}) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -9,37 +10,38 @@ const useFetch = (url) => {
   useEffect(() => {
     if (!url) return;
 
-    let isMounted = true;
+    const controller = new AbortController();
 
     const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        const res = await fetchDataFromApi(url);
+        const res = await fetchDataFromApi(url, {
+          ...params,
+          signal: controller.signal,
+        });
 
-        if (isMounted) {
-          setData(res);
-        }
+        setData(res);
       } catch (err) {
-        if (isMounted) {
+        if (!axios.isCancel(err)) {
           setError(
-            err?.response?.data?.status_message || "Something went wrong",
+            err?.response?.data?.status_message ||
+              err.message ||
+              "Something went wrong"
           );
         }
       } finally {
-        if (isMounted) {
-          setLoading(false);
-        }
+        setLoading(false);
       }
     };
 
     fetchData();
 
     return () => {
-      isMounted = false;
+      controller.abort();
     };
-  }, [url]);
+  }, [url, JSON.stringify(params)]);
 
   return { data, loading, error };
 };
