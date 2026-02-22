@@ -1,10 +1,18 @@
-import React from "react";
 import "./style.scss";
 
-const Spinner = ({ initial }) => {
+const Spinner = ({ initial = false, size = 50 }) => {
   return (
-    <div className={`loadingSpinner ${initial ? "initial" : ""}`}>
-      <svg className="spinner" viewBox="0 0 50 50">
+    <div
+      className={`loadingSpinner ${initial ? "initial" : ""}`}
+      role="status"
+      aria-live="polite"
+    >
+      <svg
+        className="spinner"
+        viewBox="0 0 50 50"
+        width={size}
+        height={size}
+      >
         <circle
           className="path"
           cx="25"
@@ -12,7 +20,7 @@ const Spinner = ({ initial }) => {
           r="20"
           fill="none"
           strokeWidth="5"
-        ></circle>
+        />
       </svg>
     </div>
   );
