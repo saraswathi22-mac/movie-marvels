@@ -1,18 +1,30 @@
 import React from "react";
-import Carousel from "../../../components/carousel/Carousel";
+import CarouselSection from "../../../components/carouselSection/CarouselSection";
 import useFetch from "../../../hooks/useFetch";
 
 const Similar = ({ mediaType, id }) => {
-  const { data, loading, error } = useFetch(`/${mediaType}/${id}/similar`);
+  const { data, loading } = useFetch(
+    `/${mediaType}/${id}/similar`
+  );
 
-  const title = mediaType === "tv" ? "Similar TV Shows" : "Similar Movies";
+  const results = data?.results || [];
+
+  const title =
+    mediaType === "tv"
+      ? "Similar TV Shows"
+      : "Similar Movies";
+
+  if (!loading && results.length === 0) {
+    return null;
+  }
 
   return (
-    <Carousel
+    <CarouselSection
       title={title}
-      data={data?.results}
-      loading={loading}
-      endpoint={mediaType}
+      fetchPath={() => `/${mediaType}/${id}/similar`}
+      defaultValue=""
+      tabs={[]}
+      endpointType="media"
     />
   );
 };
