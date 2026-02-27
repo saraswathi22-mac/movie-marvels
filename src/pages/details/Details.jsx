@@ -16,16 +16,21 @@ const Details = () => {
     id &&
     validMediaTypes.includes(mediaType);
 
-  // ✅ Fetch main details ONCE here
+  // ✅ Fetch main details once
   const { data, loading } = useFetch(
     isValidRoute ? `/${mediaType}/${id}` : null
   );
 
-  const { data: videos } = useFetch(
-    isValidRoute ? `/${mediaType}/${id}/videos` : null
-  );
+  // ✅ Fetch videos
+  const { data: videosData, loading: videosLoading } =
+    useFetch(
+      isValidRoute
+        ? `/${mediaType}/${id}/videos`
+        : null
+    );
 
-  const { data: credits, loading: creditsLoading } =
+  // ✅ Fetch credits
+  const { data: creditsData, loading: creditsLoading } =
     useFetch(
       isValidRoute
         ? `/${mediaType}/${id}/credits`
@@ -41,18 +46,18 @@ const Details = () => {
       <DetailsBanner
         data={data}
         loading={loading}
-        video={videos?.results?.[0]}
-        crew={credits?.crew}
+        video={videosData?.results?.[0]}
+        crew={creditsData?.crew}
       />
 
       <Cast
-        data={credits?.cast}
+        data={creditsData?.cast}
         loading={creditsLoading}
       />
 
       <VideosSection
-        data={data}
-        loading={loading}
+        data={videosData}
+        loading={videosLoading}
       />
 
       <Similar mediaType={mediaType} id={id} />
