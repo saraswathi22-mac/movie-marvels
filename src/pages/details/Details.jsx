@@ -16,7 +16,12 @@ const Details = () => {
     id &&
     validMediaTypes.includes(mediaType);
 
+  // ✅ Fetch main details ONCE here
   const { data, loading } = useFetch(
+    isValidRoute ? `/${mediaType}/${id}` : null
+  );
+
+  const { data: videos } = useFetch(
     isValidRoute ? `/${mediaType}/${id}/videos` : null
   );
 
@@ -34,7 +39,9 @@ const Details = () => {
   return (
     <div>
       <DetailsBanner
-        video={data?.results?.[0]}
+        data={data}
+        loading={loading}
+        video={videos?.results?.[0]}
         crew={credits?.crew}
       />
 
