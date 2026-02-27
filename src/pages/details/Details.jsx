@@ -10,16 +10,26 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 const Details = () => {
   const { mediaType, id } = useParams();
 
-  // ✅ Validate route params
   const validMediaTypes = ["movie", "tv"];
+  const isValidRoute =
+    mediaType &&
+    id &&
+    validMediaTypes.includes(mediaType);
 
-  if (!mediaType || !id || !validMediaTypes.includes(mediaType)) {
+  const { data, loading } = useFetch(
+    isValidRoute ? `/${mediaType}/${id}/videos` : null
+  );
+
+  const { data: credits, loading: creditsLoading } =
+    useFetch(
+      isValidRoute
+        ? `/${mediaType}/${id}/credits`
+        : null
+    );
+
+  if (!isValidRoute) {
     return <PageNotFound />;
   }
-
-  const { data, loading } = useFetch(`/${mediaType}/${id}/videos`);
-  const { data: credits, loading: creditsLoading } =
-    useFetch(`/${mediaType}/${id}/credits`);
 
   return (
     <div>
