@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./style.scss";
 
 const SwitchTabs = ({ data, onTabChange }) => {
   const [selectedTab, setSelectedTab] = useState(0);
-  const [left, setLeft] = useState(0);
+  const [indicatorStyle, setIndicatorStyle] = useState({});
+  const tabRefs = useRef([]);
+
+  useEffect(() => {
+    const currentTab = tabRefs.current[selectedTab];
+    if (currentTab) {
+      setIndicatorStyle({
+        width: currentTab.offsetWidth,
+        transform: `translateX(${currentTab.offsetLeft}px)`,
+      });
+    }
+  }, [selectedTab, data]);
 
   const activeTab = (tab, index) => {
-    setLeft(index * 100);
-    setTimeout(() => {
-      setSelectedTab(index);
-    }, 300);
-    onTabChange(tab, index);
+    setSelectedTab(index);
+    onTabChange?.(tab, index);
   };
 
   return (
@@ -18,14 +26,15 @@ const SwitchTabs = ({ data, onTabChange }) => {
       <div className="tabItems">
         {data.map((tab, index) => (
           <span
-            key={index}
+            key={tab}
+            ref={(el) => (tabRefs.current[index] = el)}
             className={`tabItem ${selectedTab === index ? "active" : ""}`}
             onClick={() => activeTab(tab, index)}
           >
             {tab}
           </span>
         ))}
-        <span className="movingBg" style={{ left }} />
+        <span className="movingBg" style={indicatorStyle} />
       </div>
     </div>
   );

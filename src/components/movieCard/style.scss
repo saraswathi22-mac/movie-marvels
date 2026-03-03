@@ -5,32 +5,42 @@
   margin-bottom: 25px;
   cursor: pointer;
   flex-shrink: 0;
+
   @include md {
     width: calc(25% - 15px);
   }
+
   @include lg {
     width: calc(20% - 16px);
   }
+
+  /* Accessibility */
+  &:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 4px;
+  }
+
   .posterBlock {
     position: relative;
     width: 100%;
     aspect-ratio: 1 / 1.5;
-    background-size: cover;
-    background-position: center;
     margin-bottom: 30px;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     padding: 10px;
-    transition: all ease 0.5s;
+
+    border-radius: 12px;
+
+    /* Performance-optimized transition */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+
     .lazy-load-image-background {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0; /* cleaner than top/left/width/height */
       border-radius: 12px;
       overflow: hidden;
+
       img {
         width: 100%;
         height: 100%;
@@ -38,6 +48,7 @@
         object-position: center;
       }
     }
+
     .circleRating {
       width: 40px;
       height: 40px;
@@ -45,14 +56,18 @@
       top: 30px;
       background-color: white;
       flex-shrink: 0;
+      border-radius: 50%;
+
       @include md {
         width: 50px;
         height: 50px;
       }
     }
+
     .genres {
       display: none;
       position: relative;
+
       @include md {
         display: flex;
         flex-flow: wrap;
@@ -60,27 +75,35 @@
       }
     }
   }
+
   .textBlock {
     color: white;
     display: flex;
     flex-direction: column;
+
     .title {
       font-size: 16px;
       margin-bottom: 10px;
       line-height: 24px;
+
       @include ellipsis(1);
+
       @include md {
         font-size: 20px;
       }
     }
+
     .date {
       font-size: 14px;
-      opacity: 0.5;
+      opacity: 0.6;
     }
   }
+
+  /* Premium Hover Effect */
   &:hover {
     .posterBlock {
-      opacity: 0.5;
+      transform: scale(1.05);
+      opacity: 0.85;
     }
   }
 }
