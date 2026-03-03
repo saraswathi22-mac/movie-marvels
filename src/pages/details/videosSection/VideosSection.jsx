@@ -11,6 +11,11 @@ const VideosSection = ({ data, loading }) => {
 
   const videos = data?.results || [];
 
+  const handleVideoClick = (key) => {
+    setVideoId(key);
+    setShow(true);
+  };
+
   const SkeletonItem = () => (
     <div className="skItem">
       <div className="thumb skeleton"></div>
@@ -26,47 +31,47 @@ const VideosSection = ({ data, loading }) => {
           Official Videos
         </div>
 
-        {!loading ? (
-          videos.length > 0 ? (
-            <div className="videos">
-              {videos.map((video) => {
-                if (!video?.key) return null;
-
-                return (
-                  <div
-                    key={video?.id}
-                    className="videoItem"
-                    onClick={() => {
-                      setVideoId(video.key);
-                      setShow(true);
-                    }}
-                  >
-                    <div className="videoThumbnail">
-                      <Img
-                        src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
-                      />
-                      <PlayIcon />
-                    </div>
-
-                    <div className="videoTitle">
-                      {video?.name}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="noVideos">
-              No videos available.
-            </div>
-          )
-        ) : (
+        {loading ? (
           <div className="videoSkeleton">
-            {Array.from({ length: 4 }).map(
-              (_, index) => (
-                <SkeletonItem key={index} />
-              )
-            )}
+            {Array.from({ length: 4 }).map((_, index) => (
+              <SkeletonItem key={index} />
+            ))}
+          </div>
+        ) : !videos.length ? (
+          <div className="noVideos">
+            No videos available.
+          </div>
+        ) : (
+          <div className="videos">
+            {videos.map((video) => {
+              if (!video?.key) return null;
+
+              return (
+                <div
+                  key={video.id || video.key}
+                  role="button"
+                  tabIndex={0}
+                  className="videoItem"
+                  onClick={() => handleVideoClick(video.key)}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" &&
+                    handleVideoClick(video.key)
+                  }
+                >
+                  <div className="videoThumbnail">
+                    <Img
+                      src={`https://img.youtube.com/vi/${video.key}/mqdefault.jpg`}
+                      loading="lazy"
+                    />
+                    <PlayIcon />
+                  </div>
+
+                  <div className="videoTitle">
+                    {video?.name}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         )}
       </ContentWrapper>
