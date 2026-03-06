@@ -1,4 +1,3 @@
-import React from "react";
 import CarouselSection from "../../../components/carouselSection/CarouselSection";
 import useFetch from "../../../hooks/useFetch";
 
