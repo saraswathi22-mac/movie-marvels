@@ -15,6 +15,7 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
 
   const lastScrollY = useRef(0);
+  const inputRef = useRef(null);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -57,6 +58,10 @@ const Header = () => {
   const openSearch = () => {
     setMobileMenu(false);
     setShowSearch(true);
+
+    setTimeout(() => {
+      inputRef.current?.focus();
+    }, 100);
   };
 
   const openMobileMenu = () => {
@@ -96,13 +101,15 @@ const Header = () => {
           >
             Movies
           </li>
+
           <li
             className="menuItem"
             onClick={() => navigationHandler("tv")}
           >
             TV Shows
           </li>
-          <li className="menuItem">
+
+          <li className="menuItem searchIcon">
             <HiOutlineSearch onClick={openSearch} />
           </li>
         </ul>
@@ -110,6 +117,7 @@ const Header = () => {
         {/* Mobile Icons */}
         <div className="mobileMenuItems">
           <HiOutlineSearch onClick={openSearch} />
+
           {mobileMenu ? (
             <VscChromeClose onClick={() => setMobileMenu(false)} />
           ) : (
@@ -123,14 +131,21 @@ const Header = () => {
         <div className="searchBar">
           <ContentWrapper>
             <div className="searchInput">
+              <HiOutlineSearch className="searchIcon" />
+
               <input
+                ref={inputRef}
                 type="text"
-                placeholder="Search for a movie or TV show..."
+                placeholder="Search movies, TV shows..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={searchQueryHandler}
               />
-              <VscChromeClose onClick={() => setShowSearch(false)} />
+
+              <VscChromeClose
+                className="closeIcon"
+                onClick={() => setShowSearch(false)}
+              />
             </div>
           </ContentWrapper>
         </div>
